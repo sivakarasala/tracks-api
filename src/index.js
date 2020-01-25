@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
+const requireAuth = require("./middlewares/requireAuth");
 
 // Load env vars
 dotenv.config({ path: __dirname + "/config/config.env" });
@@ -16,7 +17,7 @@ app.use(bodyParser.json());
 app.use(authRoutes);
 
 const port = process.env.PORT || 5000;
-app.get("/", (req, res) => {
+app.get("/", requireAuth, (req, res) => {
   res.send("Aum Namah Shivaya");
 });
 
