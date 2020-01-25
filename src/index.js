@@ -1,9 +1,11 @@
 require("./models/User");
+require("./models/Track");
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
+const trackRoutes = require("./routes/trackRoutes");
 const requireAuth = require("./middlewares/requireAuth");
 
 // Load env vars
@@ -15,6 +17,7 @@ connectDB();
 const app = express();
 app.use(bodyParser.json());
 app.use(authRoutes);
+app.use(trackRoutes);
 
 const port = process.env.PORT || 5000;
 app.get("/", requireAuth, (req, res) => {
